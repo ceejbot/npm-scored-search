@@ -1,0 +1,63 @@
+{
+  "name": "npm-scored-search",
+  "version": "0.0.0",
+  "description": "social-graph-weighted npm search backed by norch",
+  "main": "index.js",
+  "config": {
+    "blanket": {
+      "pattern": [
+        "lib"
+      ],
+      "data-cover-never": [
+        "node_modules",
+        "test"
+      ],
+      "output-reporter": "spec"
+    },
+    "travis-cov": {
+      "threshold": 50
+    }
+  },
+  "dependencies": {
+    "@npm/restify-monitor": "~0.1.4",
+    "async": "~1.0.0",
+    "bistre": "~1.0.1",
+    "bole": "~2.0.0",
+    "lodash": "~3.9.1",
+    "npm-normalize": "~0.2.6",
+    "numbat-emitter": "~1.1.1",
+    "repl-client": "~0.3.0",
+    "replify": "~1.2.0",
+    "request": "~2.55.0",
+    "restify": "~3.0.3",
+    "search-index": "~0.5.2",
+    "yargs": "~3.9.1"
+  },
+  "devDependencies": {
+    "blanket": "~1.1.7",
+    "jscs": "~1.13.1",
+    "jshint": "~2.7.0",
+    "mocha": "~2.2.5",
+    "mocoverage": "~1.0.0",
+    "must": "~0.12.0",
+    "patched-blanket": "~1.0.1",
+    "sinon": "~1.14.1",
+    "travis-cov": "~0.2.5"
+  },
+  "scripts": {
+    "start": "node bin/run-query-server.js",
+    "dev": "NODE_ENV=dev node bin/run-query-server.js",
+    "lint": " jshint lib test bin index.js && jscs lib test bin index.js",
+    "test": "mocha -t 10000 --check-leaks --ui exports --require blanket -R mocoverage test/test-*.js",
+    "test-cov": "mocha -t 10000 --require blanket -R travis-cov test/test-*.js",
+    "test-travis": "npm run lint && npm test && npm run test-cov"
+  },
+  "keywords": [
+    "search",
+    "npm",
+    "norch",
+    "social-graph"
+  ],
+  "author": "C J Silverio <ceej@npmjs.com>",
+  "license": "ISC"
+}
