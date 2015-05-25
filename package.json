@@ -52,7 +52,7 @@
     "start": "node bin/run-query-server.js",
     "dev": "NODE_ENV=dev node bin/run-query-server.js",
     "lint": " jshint lib test bin index.js && jscs lib test bin index.js",
-    "test": "mocha -t 10000 --check-leaks --ui exports --require blanket -R mocoverage test/test-*.js",
+    "test": "mocha -t 10000 --ui exports --require blanket -R mocoverage test/test-*.js",
     "test-cov": "mocha -t 10000 --require blanket -R travis-cov test/test-*.js",
     "test-travis": "npm run lint && npm test && npm run test-cov"
   },
