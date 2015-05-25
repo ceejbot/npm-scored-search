@@ -6,7 +6,7 @@ Three components:
 2. An adapter for a norch [search-index](https://github.com/fergiemcdowall/search-index) that exposes a simplified npm-centric api for use by...
 3. A restify server that exposes a query interface. This first searches by keywords using norch, then, if given an npm user, re-weights package scores using the package.json social graph.
 
-![Coverage](http://img.shields.io/badge/coverage-0%25-red.svg?style=flat)
+![Coverage](http://img.shields.io/badge/coverage-86%25-yellow.svg?style=flat)
 [![Travis](http://img.shields.io/travis/ceejbot/npm-scored-search.svg?style=flat)](https://travis-ci.org/ceejbot/npm-scored-search)
 
 ## Requirements

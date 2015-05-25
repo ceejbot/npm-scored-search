@@ -1,3 +1,7 @@
+var
+    _       = require('lodash'),
+    sinon   = require('sinon')
+    ;
 
 function StubMetricsEmitter()
     {}
@@ -36,6 +40,27 @@ ErrorProneRedis.prototype.expire = function()
     var callback = arguments[arguments.length - 1];
     callback(new Error('redis expire error'));
 };
+
+var MockQueue = exports.MockQueue = function MockQueue(concurrency)
+{
+    this.queue = 0;
+    this.push = sinon.spy(this.push.bind(this));
+    this.length = sinon.spy(this.length.bind(this));
+};
+
+MockQueue.prototype.push = function(task, cb)
+{
+    this.queue++;
+    setTimeout(function() { this.queue--; if (cb) cb(null, task); }, 250);
+};
+
+MockQueue.prototype.length = function()
+{
+    return this.queue;
+};
+
+MockQueue.prototype.resume = function() { };
+
 
 exports.StubMetricsEmitter = StubMetricsEmitter;
 exports.ErrorProneRedis    = ErrorProneRedis;
