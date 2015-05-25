@@ -19,7 +19,7 @@
     }
   },
   "dependencies": {
-    "@npm/restify-monitor": "~0.1.4",
+    "@ceejbot/restify-monitor": "~0.1.4",
     "async": "~1.0.0",
     "bistre": "~1.0.1",
     "bole": "~2.0.0",
@@ -41,6 +41,7 @@
     "mocoverage": "~1.0.0",
     "must": "~0.12.0",
     "patched-blanket": "~1.0.1",
+    "rimraf": "~2.3.4",
     "sinon": "~1.14.1",
     "travis-cov": "~0.2.5"
   },
