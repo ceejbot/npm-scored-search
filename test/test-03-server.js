@@ -154,6 +154,20 @@ describe('restify server', function()
             done();
         });
 
+        it('calls matches() on the norch index', function(done)
+        {
+            var spy = sinon.spy(server.norch, 'matches');
+            var req = makeMockRequest();
+            req.params = { prefix: 'prefix' };
+
+            server.handleMatches(req, makeMockResponse(), function()
+            {
+                spy.called.must.be.true();
+                spy.calledWith('prefix').must.be.true();
+                spy.restore();
+                done();
+            });
+        });
     });
 
     describe('GET /search/:terms', function()
@@ -164,6 +178,20 @@ describe('restify server', function()
             server.handleSearch.must.be.a.function();
             server.server.routes.must.have.property('getsearchterms');
             done();
+        });
+
+        it('calls search() on the norch index', function(done)
+        {
+            var spy = sinon.spy(server.norch, 'search');
+            var req = makeMockRequest();
+            req.params = { terms: 'foo bar baz' };
+
+            server.handleSearch(req, makeMockResponse(), function()
+            {
+                spy.called.must.be.true();
+                spy.restore();
+                done();
+            });
         });
     });
 

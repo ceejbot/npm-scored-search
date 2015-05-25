@@ -25,7 +25,7 @@
     "bole": "~2.0.0",
     "lodash": "~3.9.1",
     "npm-normalize": "~0.2.6",
-    "numbat-emitter": "~1.1.1",
+    "numbat-emitter": "~1.1.2",
     "repl-client": "~0.3.0",
     "replify": "~1.2.0",
     "request": "~2.55.0",
