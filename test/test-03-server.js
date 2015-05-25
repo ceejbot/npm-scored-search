@@ -21,8 +21,10 @@ function makeMockResponse()
 function makeMockRequest()
 {
     return {
-        id:      function() { return 'test'; },
-        getPath: function() { return '/test/path'; },
+        id:      function()
+            { return 'test'; },
+        getPath: function()
+            { return '/test/path'; },
         logger:  bole('mock'),
     };
 }

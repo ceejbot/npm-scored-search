@@ -51,7 +51,12 @@ var MockQueue = exports.MockQueue = function MockQueue(concurrency)
 MockQueue.prototype.push = function(task, cb)
 {
     this.queue++;
-    setTimeout(function() { this.queue--; if (cb) cb(null, task); }, 250);
+    setTimeout(function()
+    {
+        this.queue--;
+        if (cb)
+            cb(null, task);
+    }, 250);
 };
 
 MockQueue.prototype.length = function()
@@ -59,8 +64,8 @@ MockQueue.prototype.length = function()
     return this.queue;
 };
 
-MockQueue.prototype.resume = function() { };
-
+MockQueue.prototype.resume = function()
+{ };
 
 exports.StubMetricsEmitter = StubMetricsEmitter;
 exports.ErrorProneRedis    = ErrorProneRedis;
