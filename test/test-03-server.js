@@ -184,7 +184,7 @@ describe('restify server', function()
         {
             var spy = sinon.spy(server.norch, 'search');
             var req = makeMockRequest();
-            req.params = { terms: 'foo bar baz' };
+            req.params = { terms: encodeURIComponent('foo bar baz') };
 
             server.handleSearch(req, makeMockResponse(), function()
             {

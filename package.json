@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "social-graph-weighted npm search backed by norch",
   "main": "index.js",
+  "bin": {
+    "scorch": "bin/run-query-server.js"
+  },
   "config": {
     "blanket": {
       "pattern": [

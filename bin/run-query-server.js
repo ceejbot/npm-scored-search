@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-var bole         = require('bole');
-var queryService = require('../index');
-var Emitter      = require('numbat-emitter');
-var replify      = require('replify');
-var argv         = require('yargs')
-    .usage('Usage: norch --name query-service-1 --listen localhost:8000 --redis http://localhost:6379')
+var bole          = require('bole');
+var Scorch        = require('../index');
+var Emitter       = require('numbat-emitter');
+var replify       = require('replify');
+var argv          = require('yargs')
+    .usage('Usage : scorch --name scorch-1 --listen localhost:5555 --redis http://localhost:6379')
     .alias('n', 'name')
     .describe('n', 'node name for metrics & logging')
-    .default('n', 'norch')
+    .default('n', 'scorch')
     .alias('l', 'listen')
     .describe('l', 'host:port pair to listen on')
     .default('l', 'localhost:5757')
@@ -33,12 +33,11 @@ function splitHostPort(input)
 var listen = splitHostPort(argv.listen);
 var opts =
 {
-    name:          argv.name,
-    port:          process.env.PORT || listen.port,
-    host:          process.env.HOST || listen.host,
-    userapi:       argv.userapi,
-    redis:         argv.redis,
-    ttl:           argv.ttl,
+    name:  argv.name,
+    port:  process.env.PORT || listen.port,
+    host:  process.env.HOST || listen.host,
+    index: argv.index,
+    redis: argv.redis,
 };
 
 var logger = bole('wrapper');
@@ -69,7 +68,7 @@ else
     logger.info('metrics not enabled');
 }
 
-var server = new queryService.Query(opts);
+var server = new Scorch.Server(opts);
 server.listen(opts.port, opts.host, function(err)
 {
     if (err)
@@ -80,7 +79,8 @@ server.listen(opts.port, opts.host, function(err)
 
     var addy = server.server.address();
     logger.info('query service listening on ' + addy.address + ':' + addy.port);
-    opts.metrics.metric({ name: 'norch.start', pid: process.pid });
+    logger.info('options', opts);
+    opts.metrics.metric({ name: 'scorch.start', pid: process.pid });
 });
 
 replify({ name: opts.name }, server, { config: opts });

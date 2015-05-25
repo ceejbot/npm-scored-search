@@ -1,4 +1,4 @@
-# npm-scored-search
+# npm-scored-search AKA scorch
 
 Three components:
 
@@ -12,7 +12,7 @@ Three components:
 ## Requirements
 
 * write access to the norch search index path, with sufficient space
-* redis
+* probably redis for caching personalized scores (eventually)
 * probably some kind of tls termination in front
 
 ## npm script targets
@@ -37,21 +37,37 @@ Requires the URI for a running query server as configuration.
 
 TBD
 
-Used by the server.
+Used by the server to wrap the search-index api in a convenient way.
 
 ## server
 
 ### API exposed
 
-TBD
+All endpoints expect and respond with json.
+
+* `POST /package`: add a package to the search index; body must be json
+* `DELETE /package:id`: remove a package from the search index
+* `GET /matches/:prefix`: respond with an array of package names that start with the prefix
+* `GET /search/:terms`: uri-encoded search term string is turned into a query; response is an array of packages that match somehow
 
 ### Configuration
 
-TBD
+```
+Usage: scorch --name scorch-1 --listen localhost:5555 --redis http://localhost:
+6379
+
+Options:
+  -n, --name     node name for metrics & logging             [default: "scorch"]
+  -l, --listen   host:port pair to listen on         [default: "localhost:5757"]
+  -r, --redis    host:port pair for redis     [default: "http://localhost:6379"]
+  -i, --index    path for norch index file                    [default: "norch"]
+  -m, --metrics  numbat metrics URI; optional
+  --help         Show help                                             [boolean]
+```
 
 ### monitoring hooks
 
-TODO: open-source restify-monitor, which doesn't do much of anything special or sekrit
+TODO: open-source restify-monitor, which doesn't do much of anything special or sekrit. (It's now published as `@ceejbot/restify-monitor` as a temp hack.)
 
 * `/_monitor/ping`: responds with 200 'pong' if up
 * `/_monitor/status`: responds with 200 and a json object with PID & memory usage information
@@ -62,8 +78,8 @@ Also creates a repl. Location of repl socket is logged at start.
 
 The query proxy emits the following metrics:
 
-* `norch.start`: `'pid': process.pid`
-* `norch.latency`: `'value': latency`: on each request served, how long it took
+* `scorch.start`: `'pid': process.pid`
+* `scorch.latency`: `'value': latency`: on each request served, how long it took
 
 ## LICENCE
 
